@@ -64,9 +64,15 @@ body {
 }
 
 .info input[type="checkbox"]:checked~.content {
-    max-height: 200px;
+    max-height: 1000px;
     padding: 10px 16px 16px;
 }
+.img-container, .content-container {
+    display: flex;
+    flex-flow: wrap row;
+    justify-content: space-evenly;
+}
+
 
 @media only screen and (min-width: 768px) {
     .info{
