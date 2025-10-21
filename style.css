@@ -1,10 +1,17 @@
 :root{
     --blue:#001e63;
     --blue-opacity: #001e636f;
+    --blue-dark-opacity:#001e6340;
     --bg-color: white;
+    --bg-white-tint:#f0f4ff;
 }
 
 body {
+    margin:0;
+    padding: 0;
+    display: flex;
+    gap: 3em;
+    flex-flow: column wrap;
     font-family: "Asap Condensed", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -54,28 +61,94 @@ body {
 .info input[type="checkbox"]:checked+label::after {
     content: "−";
 }
-
-.info .content {
+.content {
     max-height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
     overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
     padding: 0 16px;
     background: var(--bg-color);
+    transition:
+        max-height 0.6s ease,
+        padding 0.6s ease,
+        opacity 0.6s ease,
+        transform 0.6s ease;
+    will-change: max-height, opacity, transform, padding;
 }
 
-.info input[type="checkbox"]:checked~.content {
-    max-height: 1000px;
+input:checked~.content {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
     padding: 10px 16px 16px;
+}
+
+input:checked~.content.large {
+    max-height: 1000px;
 }
 .img-container, .content-container {
     display: flex;
     flex-flow: wrap row;
     justify-content: space-evenly;
 }
-
+img{
+    max-height: 300px;
+    max-width: 300px;
+}
 
 @media only screen and (min-width: 768px) {
     .info{
         width: 85%;
     }
+}
+
+
+.card {
+    padding: 1em;
+    background: var(--bg-color);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px var(--blue-dark-opacity);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 18px var(--blue-dark-opacity);
+}
+
+.gradiant {
+    background: linear-gradient(135deg, var(--bg-white-tint), var(--bg-color));
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px var(--blue-dark-opacity);
+    padding: 24px;
+}
+
+.gradiant:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.minimal {
+    border: 1px solid var(--blue-opacity);
+    border-radius: 4px;
+    background: var(--bg-color);
+    transition: border-color 0.3s ease;
+}
+
+.minimal:hover {
+    border-color: var(--blue);
+}
+
+.minimal label::after {
+    content: "+";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform 0.4s ease;
+}
+
+.minimal input[type="checkbox"]:checked+label::after {
+    content: "−";
+    transform: translateY(-50%) rotate(180deg);
 }
